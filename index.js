@@ -1,5 +1,4 @@
 var gpio = require('onoff');
-gpio.setup(7, gpio.DIR_OUT);
 var relay = new gpio(7, 'out');
 relay.writeSync(0);
 
