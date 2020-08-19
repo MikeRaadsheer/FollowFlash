@@ -29,5 +29,3 @@ function wait(ms){
     do { date2 = new Date(); }
     while (date2 - date < ms);
 }
-
-setup();
