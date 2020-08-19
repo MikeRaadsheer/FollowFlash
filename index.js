@@ -1,5 +1,7 @@
-var gpio = require('rpi-gpio');
-gpio.setup(7, gpio.DIR_LOW);
+var gpio = require('onoff');
+gpio.setup(7, gpio.DIR_OUT);
+var relay = new gpio(7, 'out');
+relay.writeSync(0);
 
                                                                                                                                                                                         const socketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6IjJBQjAzRjI5NUY5MERDNDE5MDM5IiwicmVhZF9vbmx5Ijp0cnVlLCJwcmV2ZW50X21hc3RlciI6dHJ1ZSwidHdpdGNoX2lkIjoiNjAxNzE0MDkifQ.tFvThd__zt0YdOnI8jaUMt1M4-h9Ga4b1GNw8or5nPs";
 
@@ -17,10 +19,10 @@ sl.on('event', (e)=>{
 
 function run(){
     console.log('7: on');
-    gpio.setup(7, gpio.DIR_OUT);
+    relay.writeSync(1);
     wait(5000);
     console.log('7: off');
-    gpio.setup(7, gpio.DIR_LOW);
+    relay.writeSync(0);
 }
 
 function wait(ms){
