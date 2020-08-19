@@ -16,10 +16,10 @@ sl.on('event', (e)=>{
 
 function run(){
     console.log('7: on');
-    gpio.setup(7, gpio.DIR_OUT);
+    gpio.setup(7, gpio.DIR_LOW);
     wait(5000);
     console.log('7: off');
-    gpio.setup(7, gpio.DIR_LOW);
+    gpio.setup(7, gpio.DIR_OUT);
 }
 
 function wait(ms){
