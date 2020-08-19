@@ -1,7 +1,10 @@
 var gpio = require('rpi-gpio');
 gpio.setup(7, gpio.DIR_OUT);
-gpio.write(7, false);
 
+
+function setup(){
+    gpio.write(7,false);
+}
 
                                                                                                                                                                                         const socketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6IjJBQjAzRjI5NUY5MERDNDE5MDM5IiwicmVhZF9vbmx5Ijp0cnVlLCJwcmV2ZW50X21hc3RlciI6dHJ1ZSwidHdpdGNoX2lkIjoiNjAxNzE0MDkifQ.tFvThd__zt0YdOnI8jaUMt1M4-h9Ga4b1GNw8or5nPs";
 
@@ -12,13 +15,16 @@ sl.on('connect', ()=> console.log('Connected!'));
 
 sl.on('event', (e)=>{
     if(e.type === "follow"){
+        console.log("new follower!");
         run();
     }
 });
 
 function run(){
+    console.log('7: on');
     gpio.write(7, true);
     wait(5000);
+    console.log('7: off');
     gpio.write(7, false);
 }
 
@@ -28,3 +34,5 @@ function wait(ms){
     do { date2 = new Date(); }
     while (date2 - date < ms);
 }
+
+setup();
