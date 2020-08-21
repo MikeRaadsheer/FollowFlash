@@ -3,6 +3,8 @@ gpio.setup(7, gpio.DIR_OUT);
 
                                                                                                                                                                                         const socketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6IjJBQjAzRjI5NUY5MERDNDE5MDM5IiwicmVhZF9vbmx5Ijp0cnVlLCJwcmV2ZW50X21hc3RlciI6dHJ1ZSwidHdpdGNoX2lkIjoiNjAxNzE0MDkifQ.tFvThd__zt0YdOnI8jaUMt1M4-h9Ga4b1GNw8or5nPs";
 
+var a = true;
+
 const io = require('socket.io-client');
 const sl = io(`https://sockets.streamlabs.com?token=${socketToken}`, {transport: ['websocket']});
 
@@ -16,17 +18,24 @@ sl.on('event', (e)=>{
 });
 
 function run(){
-    gpio.write(7, true, (err)=>{
-        if (err) throw err;
-        console.log('7: on');
-    });
-    
-    wait(5000);
 
-    gpio.write(7, false, (err)=>{
-        if (err) throw err;
-        console.log('7: off');
-    });
+    if(a){
+        gpio.write(7, true, (err)=>{
+            if (err) throw err;
+            console.log('7: on');
+        });
+        a = false;
+    }else{
+        gpio.write(7, false, (err)=>{
+            if (err) throw err;
+            console.log('7: off');
+        });
+        a = true;
+    }
+
+    
+    // wait(5000);
+
 }
 
 function wait(ms){
