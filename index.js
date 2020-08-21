@@ -1,6 +1,6 @@
-var wpi = require('wiring-pi');
-wpi.setup('wpi');
-wpi.pinMode(7, wpi.OUTPUT);
+var gpio = require('rpi-gpio');
+gpio.setup(7, gpio.DIR_OUT);
+
                                                                                                                                                                                         const socketToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6IjJBQjAzRjI5NUY5MERDNDE5MDM5IiwicmVhZF9vbmx5Ijp0cnVlLCJwcmV2ZW50X21hc3RlciI6dHJ1ZSwidHdpdGNoX2lkIjoiNjAxNzE0MDkifQ.tFvThd__zt0YdOnI8jaUMt1M4-h9Ga4b1GNw8or5nPs";
 
 const io = require('socket.io-client');
@@ -16,11 +16,17 @@ sl.on('event', (e)=>{
 });
 
 function run(){
-    console.log('7: on');
-    wpi.digitalWrite(7, 1);
+    gpio.write(7, true, (err)=>{
+        if (err) throw err;
+        console.log('7: on');
+    });
+    
     wait(5000);
-    console.log('7: off');
-    wpi.digitalWrite(7, 0);
+
+    gpio.write(7, false, (err)=>{
+        if (err) throw err;
+        console.log('7: off');
+    });
 }
 
 function wait(ms){
