@@ -28,7 +28,6 @@ function run(){
         gpio.write(7, false, (err)=>{
         if (err) throw err;
         console.log('7: off');
+        });
     }, 5000);
-
-    });
 }
