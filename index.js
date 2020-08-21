@@ -8,10 +8,7 @@ var a = true;
 const io = require('socket.io-client');
 const sl = io(`https://sockets.streamlabs.com?token=${socketToken}`, {transport: ['websocket']});
 
-sl.on('connect', ()=> {
-    console.log('Connected!'); 
-    TurnOff();
-});
+sl.on('connect', ()=> console.log('Connected!'));
 
 sl.on('event', (e)=>{
     if(e.type === "follow"){
@@ -22,30 +19,16 @@ sl.on('event', (e)=>{
 
 function run(){
 
-    TurnOn();
-    
-    wait(5000);
-
-    TurnOff();
-}
-
-function TurnOn(){
     gpio.write(7, true, (err)=>{
         if (err) throw err;
         console.log('7: on');
     });
-}
 
-function TurnOff(){
-    gpio.write(7, false, (err)=>{
+    setTimeout(()=> {
+        gpio.write(7, false, (err)=>{
         if (err) throw err;
         console.log('7: off');
-    });
-}
+    }, 5000);
 
-function wait(ms){
-    var date = new Date();
-    var date2 = null;
-    do { date2 = new Date(); }
-    while (date2 - date < ms);
+    });
 }
