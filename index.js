@@ -31,3 +31,12 @@ function run(){
         });
     }, 5000);
 }
+
+function setup(){
+    gpio.write(7, false, (err)=>{
+        if (err) throw err;
+        console.log('7: off');
+        });
+}
+
+setup();
