@@ -7,7 +7,16 @@ gpio.setup(7, gpio.DIR_OUT);
 const io = require('socket.io-client');
 const sl = io(`https://sockets.streamlabs.com?token=${socketToken}`, {transport: ['websocket']});
 
-sl.on('connect', ()=> console.log('Connected!'));
+sl.on('connect', ()=> {
+    console.log('Connected!');
+    
+    setTimeout(()=> {
+        gpio.write(7, true, (err)=>{
+        if (err) throw err;
+        console.log('7: off');
+        });
+    }, 5000);
+});
 
 sl.on('event', (e)=>{
     if(e.type === "follow"){
